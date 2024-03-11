@@ -62,10 +62,24 @@ The Muse uses a BT 4.2 [BTLE](https://www.google.com/search?client=firefox-b-1-d
 ### Connecting with Petals - Questions
 
 1. Follow the [instructions on this page](https://docs.petal.tech/connect-to-muse/connect-a-muse-device) to install petals and connect to the Muse. Also make sure to follow the OS specific instructions for connecting linked on the same page. Write steps below on how to connect with the Muse.
+    - Open Petal.
+    - Turn on Bluetooth on your device
+    - Power on Muse headset
+    - Click "Stream data" to start recieving EEG from headset.
+
 
 2. The Petals Metrics software uses OSC or LSL. What are they? What is the difference between the two? What is UDP? What is the relation between UDP and OSC?
+    - OSC stands for Open Sound Control and is protocol for communication between computers. Itwas designed to be really user-friendly and easy to parse.
+    - LSL stands for LabStreamingLayer and is a system that provides multiple APIs for unified collection of timeseries data. It is mostly used in researches.
+    - UDP is a transport protocol, which is known for its low overhead and minimal reliability mechanisms, making it suitable for real-time applications where speed is prioritized over reliability.
+    - OSC uses UDP as one if its main communication protocols.
+
+
 
 3. Read src/osc_muse_stream.py and get it to run. What is Python OSC? What is pythonosc.osc_server.ThreadingOSCUDPServer? What is pythonosc.dispatcher.Dispatcher()? 
+    - PythonOSC is a library for working with OSC protocols in Python.
+    - pythonosc.osc_server.ThreadingOSCUDPServer is a threading verdion of the OSC UDP server, which creates a separate thread for every new message.
+    - pythonosc.dispatcher.Dispatcher() maps OSC addresses to functions and calls the functions with the messages' arguments.
 
 
 
