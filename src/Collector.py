@@ -20,7 +20,7 @@ class BCI:
 		self.streaming_software = self.BCI_params["streaming_software"]
 		self.streaming_protocol = self.BCI_params["streaming_protocol"]
 		self.cache_size = self.BCI_params["cache_size"]
-		self.cache = ... # TODO: create a NumPy array with size = cache_size
+		self.cache = np.empty(self.cache_size) # TODO: create a NumPy array with size = cache_size
 
 
 class PreProcessingSubBlock:
@@ -33,9 +33,29 @@ class MovingAverageFilter(PreProcessingSubBlock):
 	def __init__(self, kernel_size=8, channel_count=4):
 		self.kernel_size = kernel_size
 		self.channel_count = channel_count
+		self.shift_step = kernel_size
 
 	def start(self, stream):
-		... #TODO implement moving average filter
+		#TODO implement moving average filter
+		current_data = []
+		index = 0
+		while True:
+			if len(current_data) == self.kernel_size:
+				averaged_data = []
+				for channel in range(self.kernel_size):
+					average_data_for_channel = sum([current_data[i][channel] for i in range(self.kernel_size)]) / self.kernel_size
+					averaged_data.append(average_data_for_channel)
+				# TODO: ADD TO CACHE?????
+				index += 1
+				for i in range(self.shift_step):
+					current_data.pop(i)
+			else:
+				current_data.append(stream[index])
+				index += 1
+				
+				
+				
+
 
 class OutputBlock:
 	pass
